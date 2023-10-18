@@ -19,11 +19,12 @@ body {
   width: 100vw;
   height: 100vh;
   align-items: center;
+  margin: 0;
 }
 
 #root {
   width: 678px;
-  height: 980px;
+  height: 920px;
   background-color: #fff;
   position: relative;
   overflow: hidden;
