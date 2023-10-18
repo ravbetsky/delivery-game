@@ -1,16 +1,24 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Level } from "../../models/level/type";
 import { Button } from "../../shared/ui/button/Button";
 import Solve from "./Solve";
 import { useLevel, useTimer } from "./hooks";
 import { formatTimer } from "./utils";
 import { LngLat, YMap } from "@yandex/ymaps3-types";
+import DrawerEndGame from "./DrawerEndGame";
 
 export function GameScreen() {
   const [canGoNext, setCanGoNext] = useState(false);
   const [score, setScore] = useState(0);
-  const { level, levelIndex, goNext } = useLevel();
-  const seconds = useTimer();
+  const { level, levelIndex, goNext, goToFirst } = useLevel();
+  const {seconds, resetTimer} = useTimer();
+
+  const restart = useCallback(() => {
+    setScore(0);
+    setCanGoNext(false);
+    goToFirst();
+    resetTimer()
+  }, [goToFirst, resetTimer]);
 
   useEffect(() => {
     // @ts-ignore
@@ -35,7 +43,9 @@ export function GameScreen() {
         <div className="score">{score}</div>
       </div>
       <div className="game-bottom-ui">
-        <div className="timer">{formatTimer(seconds)}</div>
+        <div className={`timer ${seconds < 10 ? "alert" : ""}`}>
+          {formatTimer(seconds)}
+        </div>
         <div className="next">
           <Button
             title="Следующий маршрут"
@@ -49,6 +59,9 @@ export function GameScreen() {
           />
         </div>
       </div>
+      {seconds === 0 && (
+        <DrawerEndGame score={score} onRestartClick={restart} />
+      )}
     </>
   );
 }

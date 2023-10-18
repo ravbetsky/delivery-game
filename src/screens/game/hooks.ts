@@ -2,15 +2,19 @@ import { useCallback, useEffect, useState } from "react";
 import levels from "../../assets/level.json";
 
 const INITIAL_SECONDS = 30;
-// const LAST_SECONDS = 5;
 
 export const useLevel = () => {
-  const [levelIndex, setLevelIndex] = useState(3);
+  const [levelIndex, setLevelIndex] = useState(0);
+
   const goNext = useCallback(() => {
     setLevelIndex(levelIndex + 1);
   }, [levelIndex]);
 
-  return { level: levels.levels[levelIndex], levelIndex, goNext };
+  const goToFirst = useCallback(() => {
+    setLevelIndex(0);
+  }, []);
+
+  return { level: levels.levels[levelIndex], levelIndex, goNext, goToFirst };
 };
 
 export function useSolve({
@@ -53,6 +57,10 @@ export function useSolve({
 export const useTimer = () => {
   const [seconds, setSeconds] = useState(INITIAL_SECONDS);
 
+  const resetTimer = useCallback(() => {
+    setSeconds(INITIAL_SECONDS);
+  }, []);
+
   useEffect(() => {
     async function tickSecond() {
       return new Promise((res) => window.setTimeout(res, 1000));
@@ -62,5 +70,5 @@ export const useTimer = () => {
     }
   }, [seconds]);
 
-  return seconds;
+  return { seconds, resetTimer };
 };
