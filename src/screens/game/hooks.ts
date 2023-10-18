@@ -7,7 +7,9 @@ export const useLevel = () => {
   const [levelIndex, setLevelIndex] = useState(0);
 
   const goNext = useCallback(() => {
-    setLevelIndex(levelIndex + 1);
+    if (levelIndex < levels.levels.length - 1) {
+      setLevelIndex(levelIndex + 1);
+    }
   }, [levelIndex]);
 
   const goToFirst = useCallback(() => {
