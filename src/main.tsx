@@ -11,6 +11,8 @@ import { TutorialScreen } from "./screens/tutorial/TutorialScreen";
 
 import "./index.css";
 
+window.ysdk.features.LoadingAPI?.ready();
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <MapProvider>
