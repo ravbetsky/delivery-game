@@ -11,6 +11,7 @@ import { TutorialScreen } from "./screens/tutorial/TutorialScreen";
 
 import "./index.css";
 
+// @ts-ignore
 window.ysdk.features.LoadingAPI?.ready();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

@@ -12,6 +12,7 @@ function DrawerEndGame({
   const navigate = useNavigate();
 
   useEffect(() => {
+    // @ts-ignore
     window.ysdk.getLeaderboards().then((lb) => {
       // Без extraData
       lb.setLeaderboardScore("parcelsCount", score);

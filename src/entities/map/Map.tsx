@@ -1,6 +1,5 @@
 import React from "react";
 import { useMapAPI } from "./hooks";
-import { CUSTOMIZATION } from "./custom";
 
 function Map({ children }: { children: React.ReactNode }) {
   const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer } =
@@ -15,7 +14,7 @@ function Map({ children }: { children: React.ReactNode }) {
       // @ts-ignore Инстанс пригодится чтобы управлять картой
       ref={(x) => (window.mapInstance = x)}
     >
-      <YMapDefaultSchemeLayer customization={CUSTOMIZATION} />
+      <YMapDefaultSchemeLayer />
       <YMapDefaultFeaturesLayer />
       {children}
     </YMap>
