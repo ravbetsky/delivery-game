@@ -6,7 +6,6 @@ import Map from "./entities/map/Map";
 import { LeaderboardScreen } from "./screens/leaderboard/LeaderboardScreen";
 import { MainScreen } from "./screens/main/MainScreen";
 import { GameScreen } from "./screens/game/GameScreen";
-import { TutorialScreen } from "./screens/tutorial/TutorialScreen";
 
 import "./index.css";
 
@@ -19,8 +18,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Route path="/" Component={MainScreen} />
             <Route path="/game" Component={GameScreen} />
             <Route path="/leaderboard" Component={LeaderboardScreen} />
-            <Route path="/tutorial" Component={TutorialScreen} />
-            {/* <Route path="/gameover" Component={GameOverScreen} /> */}
           </Routes>
         </MemoryRouter>
       </Map>

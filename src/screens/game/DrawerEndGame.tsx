@@ -19,7 +19,7 @@ function DrawerEndGame({
         <p>Отличный результат!</p>
         <Button type="action" title="Играть ещё" onClick={onRestartClick} />
         <Button title="Лидерборды" onClick={() => navigate("/leaderboard")} />
-        <Button title="В меню" onClick={onRestartClick} />
+        <Button title="В меню" onClick={() => navigate("/")} />
       </div>
     </div>
   );

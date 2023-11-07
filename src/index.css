@@ -19,6 +19,7 @@ body {
   color: #242424;
   width: 100vw;
   height: 100vh;
+  max-width: 480px;
   max-height: -webkit-fill-available;
   align-items: center;
   margin: 0;
@@ -101,7 +102,7 @@ body {
   gap: 8px;
   align-self: center;
   margin-right: auto;
-  margin-left: auto;;
+  margin-left: auto;
 }
 
 .score::before {
@@ -110,6 +111,20 @@ body {
   width: 24px;
   height: 24px;
   background: url("./assets/box.svg");
+}
+
+.score.animate-pop {
+  animation: popScore 0.5s 1 ease-in;
+}
+
+@keyframes popScore {
+  0% {
+    transform: scale(1.17);
+  }
+
+  70% {
+    transform: scale(1);
+  }
 }
 
 .timer {
@@ -300,4 +315,48 @@ h1 {
   height: 26px;
   margin: auto;
   background: url("./assets/back.svg") no-repeat;
+}
+
+.btn-help {
+  box-shadow: 0px 8px 20px 0px #0000001f;
+  background-color: white;
+  height: 59px;
+  width: 59px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-help::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: auto;
+  background: url("./assets/help.svg") no-repeat;
+}
+
+.cover {
+  background: url("./assets/cover_main.png") top center no-repeat;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.main-top-ui {
+  display: flex;
+  position: sticky;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.logo {
+  width: 175px;
+  height: 26px;
+  background: url("./assets//logo.svg") center center no-repeat;
 }

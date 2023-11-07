@@ -1,4 +1,4 @@
-import { Coords } from "../../models/level/type";
+import { Coords } from "../../entities/level";
 
 function randomNumberFromMax(num: number) {
   return Math.floor(Math.random() * (num + 1));

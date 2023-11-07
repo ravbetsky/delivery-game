@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Level } from "../../models/level/type";
+import { Level, Point } from "../../entities/level";
 import { Button } from "../../shared/ui/button/Button";
 import Solve from "./Solve";
 import { useLevel } from "./hooks";
@@ -8,6 +8,7 @@ import DrawerEndGame from "./DrawerEndGame";
 import { useNavigate } from "react-router-dom";
 import { Timer } from "./Timer";
 import { coordsToBounds } from "../../shared/utils";
+import { Score } from "./Score";
 
 export function GameScreen() {
   const [tryIndex, setTryIndex] = useState(0);
@@ -42,14 +43,13 @@ export function GameScreen() {
         score={score}
         level={level as Level}
         key={String(`level_${levelIndex}_try_${tryIndex}`)}
-        isRouteFull={canGoNext}
         onScoreUpdate={setScore}
         onChangeIsPathFull={setCanGoNext}
       />
       <div className="game-top-ui">
         <div className="back-btn" onClick={() => navigate("/")} />
-        <div className="score">{score}</div>
-        <div className="back-btn" style={{ visibility: "hidden" }} />
+        <Score score={score} />
+        <div className="btn-help" />
       </div>
       <div className="game-bottom-ui">
         <Timer
@@ -66,7 +66,7 @@ export function GameScreen() {
                 : undefined
             }
             onClick={() => goNext()}
-            // disabled={!canGoNext}
+            disabled={!canGoNext}
           />
         </div>
       </div>

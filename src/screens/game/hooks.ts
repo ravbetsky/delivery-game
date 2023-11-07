@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import levels from "../../assets/level.json";
 import { makeShuffler } from "../../shared/utils";
 
-const INITIAL_SECONDS = 9999;
+const INITIAL_SECONDS = 30;
 const shuffleLevel = makeShuffler(levels.levels.length - 1);
 
 export const useLevel = () => {

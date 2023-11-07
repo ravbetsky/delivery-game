@@ -1,23 +1,11 @@
 /* eslint-disable */
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../shared/ui/button/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function LeaderboardScreen() {
   const navigate = useNavigate();
-  const [leaderboard, setLeaderboard] = useState([]);
-
-  useEffect(() => {
-    // @ts-ignore
-    window.ysdk.getLeaderboards().then((lb) => {
-      lb.getLeaderboardEntries("parcelsCount1", {
-        quantityTop: 15,
-        includeUser: true,
-        quantityAround: 3,
-        // @ts-ignore
-      }).then((res) => setLeaderboard(res.entries));
-    });
-  }, []);
+  const [leaderboard] = useState([]);
 
   return (
     <div className="end-game-ui">

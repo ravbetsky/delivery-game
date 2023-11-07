@@ -1,9 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import tutorVideoURL from "../../assets/tutor.mp4";
-import { Button } from "../../shared/ui/button/Button";
+import tutorVideoURL from "../../../assets/tutor.mp4";
+import { Button } from "../button/Button";
 
-export function TutorialScreen() {
-  const navigate = useNavigate();
+type Props = {
+  onNextClick: VoidFunction;
+};
+
+export function Tutorial({ onNextClick }: Props) {
   return (
     <div className="end-game-ui">
       <div className="overlay"></div>
@@ -19,10 +21,7 @@ export function TutorialScreen() {
         <p>
           У тебя есть только <b>30 секунд</b>!
         </p>
-        <Button
-          title="Всё понятно, го играть!"
-          onClick={() => navigate("/game")}
-        />
+        <Button title="Всё понятно, го играть!" onClick={onNextClick} />
       </div>
     </div>
   );
