@@ -16,8 +16,10 @@
 body {
   display: flex;
   justify-content: center;
+  color: #242424;
   width: 100vw;
   height: 100vh;
+  max-height: -webkit-fill-available;
   align-items: center;
   margin: 0;
 }
@@ -167,15 +169,13 @@ body {
 
 .marker-solve.disable {
   pointer-events: none;
-  background-color: rgba(0, 0, 0);
-  opacity: 0.3;
+  background-color: rgb(171, 171, 171);
 }
 
 .marker-solve.current::after {
   position: absolute;
   top: 0;
   left: 0;
-
   width: 52px;
   height: 52px;
   z-index: -1;

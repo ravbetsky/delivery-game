@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../shared/ui/button/Button";
-import { useEffect } from "react";
 
 function DrawerEndGame({
   score,
@@ -10,15 +9,6 @@ function DrawerEndGame({
   onRestartClick: VoidFunction;
 }) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // @ts-ignore
-    window.ysdk.getLeaderboards().then((lb) => {
-      // Без extraData
-      lb.setLeaderboardScore("parcelsCount", score);
-      // С extraData
-    });
-  }, []);
 
   return (
     <div className="end-game-ui">

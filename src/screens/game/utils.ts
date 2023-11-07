@@ -1,5 +1,8 @@
 import { Connection, Point } from "../../models/level/type";
 
+export const getPointByID = (points: Point[], id: string) =>
+  points.find((point) => point.id === id);
+
 export const formatTimer = (timer: number) =>
   `00:${timer < 10 ? `0${timer}` : timer}`;
 

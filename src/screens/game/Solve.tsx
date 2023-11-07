@@ -1,19 +1,27 @@
 import { markerSolve } from "../../shared/ui/marker-solve";
 import { useSolve } from "./hooks";
-import { hasConnectionToPointFromPoint, isNoMorePointsLeft } from "./utils";
+import {
+  getPointByID,
+  hasConnectionToPointFromPoint,
+  isNoMorePointsLeft,
+} from "./utils";
 import { Level } from "../../models/level/type";
 import { useMapAPI } from "../../entities/map/hooks";
 import { makePolyline } from "../../shared/lib/polyline";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
+import { markerFrom } from "../../shared/ui/marker-from";
+import { markerTo } from "../../shared/ui/marker-to";
 
 function Solve({
   level,
   score,
   onScoreUpdate,
   onChangeIsPathFull,
+  isRouteFull,
 }: {
   level: Level;
   score: number;
+  isRouteFull: boolean;
   onScoreUpdate: (score: number) => void;
   onChangeIsPathFull: (isPathFull: boolean) => void;
 }) {
@@ -25,10 +33,10 @@ function Solve({
     onScoreUpdate,
   });
 
+  const lastId = solveStack[solveStack.length - 1];
   const solvePathCoords = solveStack.map(
     (item) => points.find((point) => point.id === item)!.coords!
   );
-  const lastId = solveStack[solveStack.length - 1];
 
   useEffect(() => {
     onChangeIsPathFull(isNoMorePointsLeft(solveStack, connections, points));

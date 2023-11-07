@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 import levels from "../../assets/level.json";
+import { makeShuffler } from "../../shared/utils";
 
-const INITIAL_SECONDS = 30;
+const INITIAL_SECONDS = 9999;
+const shuffleLevel = makeShuffler(levels.levels.length - 1);
 
 export const useLevel = () => {
-  const [levelIndex, setLevelIndex] = useState(0);
+  const [levelIndex, setLevelIndex] = useState(shuffleLevel());
 
   const goNext = useCallback(() => {
-    if (levelIndex < levels.levels.length - 1) {
-      setLevelIndex(levelIndex + 1);
-    }
-  }, [levelIndex]);
+    setLevelIndex(shuffleLevel());
+  }, []);
 
   const goToFirst = useCallback(() => {
     setLevelIndex(0);

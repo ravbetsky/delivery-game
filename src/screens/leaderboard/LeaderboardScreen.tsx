@@ -10,7 +10,7 @@ export function LeaderboardScreen() {
   useEffect(() => {
     // @ts-ignore
     window.ysdk.getLeaderboards().then((lb) => {
-      lb.getLeaderboardEntries("parcelsCount", {
+      lb.getLeaderboardEntries("parcelsCount1", {
         quantityTop: 15,
         includeUser: true,
         quantityAround: 3,

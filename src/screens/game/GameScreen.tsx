@@ -2,37 +2,39 @@ import { useCallback, useEffect, useState } from "react";
 import { Level } from "../../models/level/type";
 import { Button } from "../../shared/ui/button/Button";
 import Solve from "./Solve";
-import { useLevel, useTimer } from "./hooks";
-import { formatTimer } from "./utils";
+import { useLevel } from "./hooks";
 import { LngLat, YMap } from "@yandex/ymaps3-types";
 import DrawerEndGame from "./DrawerEndGame";
 import { useNavigate } from "react-router-dom";
+import { Timer } from "./Timer";
+import { coordsToBounds } from "../../shared/utils";
 
 export function GameScreen() {
-  const [tryIndex, setTryIndex] = useState(0)
+  const [tryIndex, setTryIndex] = useState(0);
   const [canGoNext, setCanGoNext] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const navigate = useNavigate();
   const { level, levelIndex, goNext, goToFirst } = useLevel();
-  const { seconds, resetTimer } = useTimer();
 
   const restart = useCallback(() => {
-    setTryIndex(tryIndex + 1)
+    setTryIndex(tryIndex + 1);
     setScore(0);
     setCanGoNext(false);
+    setGameOver(false);
     goToFirst();
-    resetTimer();
-  }, [goToFirst, resetTimer, tryIndex]);
+  }, [goToFirst, tryIndex]);
 
   useEffect(() => {
     // @ts-ignore
     (window.mapInstance as YMap).setLocation({
-      bounds: level.bounds,
-      center: level.center as LngLat,
-      zoom: level.zoom,
+      // @ts-expect-error
+      bounds: coordsToBounds(
+        level.points.map((point) => point.coords as LngLat, true)
+      ),
       duration: 200,
     });
-  }, [level.bounds, level.center, level.zoom]);
+  }, [level.points]);
 
   return (
     <>
@@ -40,6 +42,7 @@ export function GameScreen() {
         score={score}
         level={level as Level}
         key={String(`level_${levelIndex}_try_${tryIndex}`)}
+        isRouteFull={canGoNext}
         onScoreUpdate={setScore}
         onChangeIsPathFull={setCanGoNext}
       />
@@ -49,9 +52,10 @@ export function GameScreen() {
         <div className="back-btn" style={{ visibility: "hidden" }} />
       </div>
       <div className="game-bottom-ui">
-        <div className={`timer ${seconds < 10 ? "alert" : ""}`}>
-          {formatTimer(seconds)}
-        </div>
+        <Timer
+          key={String(`try_${tryIndex}`)}
+          onTimerEnd={() => setGameOver(true)}
+        />
         <div className="next">
           <Button
             title="Следующий маршрут"
@@ -62,13 +66,11 @@ export function GameScreen() {
                 : undefined
             }
             onClick={() => goNext()}
-            disabled={!canGoNext}
+            // disabled={!canGoNext}
           />
         </div>
       </div>
-      {seconds === 0 && (
-        <DrawerEndGame score={score} onRestartClick={restart} />
-      )}
+      {gameOver && <DrawerEndGame score={score} onRestartClick={restart} />}
     </>
   );
 }

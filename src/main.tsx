@@ -7,12 +7,8 @@ import { LeaderboardScreen } from "./screens/leaderboard/LeaderboardScreen";
 import { MainScreen } from "./screens/main/MainScreen";
 import { GameScreen } from "./screens/game/GameScreen";
 import { TutorialScreen } from "./screens/tutorial/TutorialScreen";
-// import { GameOverScreen } from "./screens/gameover/GameOverScreen";
 
 import "./index.css";
-
-// @ts-ignore
-window.ysdk.features.LoadingAPI?.ready();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
