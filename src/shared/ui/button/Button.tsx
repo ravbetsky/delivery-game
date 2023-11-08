@@ -2,7 +2,7 @@ import "./Button.css";
 
 type Props = {
   title: string;
-  type?: "default" | "action";
+  type?: "default" | "action" | "outline" | "white-action";
   onClick?: () => void;
   disabled?: boolean;
   helperText?: string;

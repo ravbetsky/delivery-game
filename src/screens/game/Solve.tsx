@@ -1,10 +1,17 @@
 import { markerSolve } from "../../shared/ui/marker-solve";
 import { useSolve } from "./hooks";
-import { hasConnectionToPointFromPoint, isNoMorePointsLeft } from "./utils";
-import { Level } from "../../entities/level";
-import { useMapAPI } from "../../entities/map/hooks";
+import {
+  hasConnectionToPointFromPoint,
+  isConnectionConnectable,
+  isNoMorePointsLeft,
+} from "./utils";
+import { Level } from "../../types";
+import { useMapAPI } from "../../shared/ui/map/hooks";
 import { makePolyline } from "../../shared/lib/polyline";
 import { useEffect } from "react";
+
+const CONNECTION_COLOR_DEFAULT = "rgba(0,0,0,0.2)";
+const CONNECTION_COLOR_CONNECTABLE = "rgba(0,0,0,0.6)";
 
 function Solve({
   level,
@@ -49,7 +56,9 @@ function Solve({
                 connection.map(
                   (id) => points.find((point) => point.id === id)!.coords!
                 ),
-                "rgba(0,0,0,0.3)"
+                isConnectionConnectable(connection, solveStack)
+                  ? CONNECTION_COLOR_CONNECTABLE
+                  : CONNECTION_COLOR_DEFAULT
               )}
             />
           )

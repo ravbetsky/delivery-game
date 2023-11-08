@@ -1,5 +1,5 @@
 import { YMapFeatureProps } from "@yandex/ymaps3-types";
-import { Coords } from "../../../entities/level";
+import { Coords } from "../../../types";
 
 export const makePolyline = (
   coords: Coords[],

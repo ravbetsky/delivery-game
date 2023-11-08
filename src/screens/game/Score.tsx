@@ -8,7 +8,7 @@ type Props = {
 const DURATION = 500;
 
 export function Score({ score }: Props) {
-  const scoreElementRef = useRef<HTMLDivElement>();
+  const scoreElementRef = useRef<HTMLDivElement>(null);
   const prevRef = useRef<number>(0);
   const [newScore, setNewScore] = useState(0);
 

@@ -3,11 +3,12 @@ import { useTimer } from "./hooks";
 import { formatTimer } from "./utils";
 
 type Props = {
+  isPaused?: boolean;
   onTimerEnd: VoidFunction;
 };
 
-export function Timer({ onTimerEnd }: Props) {
-  const { seconds } = useTimer();
+export function Timer({ onTimerEnd, isPaused = false }: Props) {
+  const { seconds } = useTimer(isPaused);
 
   useEffect(() => {
     if (seconds === 0) {

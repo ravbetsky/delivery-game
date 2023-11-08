@@ -39,3 +39,16 @@ export const isNoMorePointsLeft = (
       !hasConnectionToPointFromPoint(solveStack, connections, pointId)
   );
 };
+
+export const isConnectionConnectable = (
+  connection: Connection,
+  solveStack: string[] = []
+) => {
+  const stack = [...solveStack];
+  const lastFromStack = stack.pop();
+  return (
+    lastFromStack &&
+    connection.includes(lastFromStack) &&
+    stack.every((id) => !connection.includes(id))
+  );
+};

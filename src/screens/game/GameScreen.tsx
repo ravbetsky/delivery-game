@@ -1,21 +1,33 @@
 import { useCallback, useEffect, useState } from "react";
-import { Level, Point } from "../../entities/level";
+import { Level } from "../../types";
 import { Button } from "../../shared/ui/button/Button";
 import Solve from "./Solve";
 import { useLevel } from "./hooks";
 import { LngLat, YMap } from "@yandex/ymaps3-types";
-import DrawerEndGame from "./DrawerEndGame";
 import { useNavigate } from "react-router-dom";
 import { Timer } from "./Timer";
 import { coordsToBounds } from "../../shared/utils";
 import { Score } from "./Score";
+import { Tutorial } from "../../shared/ui/tutorial";
+import { ConfirmBack } from "../../shared/ui/confirm-back";
+import useLocalStorage from "react-use-localstorage";
+import { Gameover } from "../../shared/ui/gameover";
 
 export function GameScreen() {
   const [tryIndex, setTryIndex] = useState(0);
+  const [showTutorialFirst, setShowTutorialFirst] = useLocalStorage(
+    "showTutorialFirst",
+    "1"
+  );
+  const [showBackConfirm, setShownBackConfirm] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(
+    Boolean(Number(showTutorialFirst))
+  );
   const [canGoNext, setCanGoNext] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const navigate = useNavigate();
+  const isGamePaused = showBackConfirm || showTutorial;
   const { level, levelIndex, goNext, goToFirst } = useLevel();
 
   const restart = useCallback(() => {
@@ -47,14 +59,15 @@ export function GameScreen() {
         onChangeIsPathFull={setCanGoNext}
       />
       <div className="game-top-ui">
-        <div className="back-btn" onClick={() => navigate("/")} />
+        <div className="back-btn" onClick={() => setShownBackConfirm(true)} />
         <Score score={score} />
-        <div className="btn-help" />
+        <div className="btn-help" onClick={() => setShowTutorial(true)} />
       </div>
       <div className="game-bottom-ui">
         <Timer
           key={String(`try_${tryIndex}`)}
           onTimerEnd={() => setGameOver(true)}
+          isPaused={isGamePaused}
         />
         <div className="next">
           <Button
@@ -70,7 +83,27 @@ export function GameScreen() {
           />
         </div>
       </div>
-      {gameOver && <DrawerEndGame score={score} onRestartClick={restart} />}
+      {gameOver && (
+        <Gameover
+          score={score}
+          onRestartClick={restart}
+          onMenuClick={() => navigate("/")}
+        />
+      )}
+      {showTutorial && (
+        <Tutorial
+          onNextClick={() => {
+            setShowTutorial(false);
+            setShowTutorialFirst("0");
+          }}
+        />
+      )}
+      {showBackConfirm && (
+        <ConfirmBack
+          onCancelClick={() => setShownBackConfirm(false)}
+          onConfirmClick={() => navigate("/")}
+        />
+      )}
     </>
   );
 }

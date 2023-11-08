@@ -6,7 +6,11 @@ const INITIAL_SECONDS = 30;
 const shuffleLevel = makeShuffler(levels.levels.length - 1);
 
 export const useLevel = () => {
-  const [levelIndex, setLevelIndex] = useState(shuffleLevel());
+  const [levelIndex, setLevelIndex] = useState(0);
+
+  useEffect(() => {
+    setLevelIndex(shuffleLevel());
+  }, []);
 
   const goNext = useCallback(() => {
     setLevelIndex(shuffleLevel());
@@ -16,7 +20,7 @@ export const useLevel = () => {
     setLevelIndex(0);
   }, []);
 
-  return { level: levels.levels[levelIndex], levelIndex, goNext, goToFirst };
+  return { level: levels.levels[levelIndex!], levelIndex, goNext, goToFirst };
 };
 
 export function useSolve({
@@ -56,7 +60,7 @@ export function useSolve({
   };
 }
 
-export const useTimer = () => {
+export const useTimer = (isPaused: boolean) => {
   const [seconds, setSeconds] = useState(INITIAL_SECONDS);
 
   const resetTimer = useCallback(() => {
@@ -67,10 +71,10 @@ export const useTimer = () => {
     async function tickSecond() {
       return new Promise((res) => window.setTimeout(res, 1000));
     }
-    if (seconds !== 0) {
+    if (seconds !== 0 && !isPaused) {
       tickSecond().then(() => setSeconds(seconds - 1));
     }
-  }, [seconds]);
+  }, [seconds, isPaused]);
 
   return { seconds, resetTimer };
 };

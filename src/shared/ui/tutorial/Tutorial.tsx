@@ -7,11 +7,11 @@ type Props = {
 
 export function Tutorial({ onNextClick }: Props) {
   return (
-    <div className="end-game-ui">
+    <div className="black-drawer-ui">
       <div className="overlay"></div>
       <div className="drawer">
         <h4>Как играть?</h4>
-        <video autoPlay loop>
+        <video controls={undefined} autoPlay loop>
           <source src={tutorVideoURL} type="video/mp4" />
         </video>
         <p>
@@ -21,7 +21,11 @@ export function Tutorial({ onNextClick }: Props) {
         <p>
           У тебя есть только <b>30 секунд</b>!
         </p>
-        <Button title="Всё понятно, го играть!" onClick={onNextClick} />
+        <Button
+          type="white-action"
+          title="Всё понятно, го играть!"
+          onClick={onNextClick}
+        />
       </div>
     </div>
   );
