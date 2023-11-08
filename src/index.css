@@ -396,7 +396,7 @@ h1 {
 }
 
 .cover {
-  background: url("./assets/cover_main.png") top center no-repeat;
+  background: url("./assets/cover@2x.png") top center no-repeat;
   background-size: cover;
   position: absolute;
   left: 0;

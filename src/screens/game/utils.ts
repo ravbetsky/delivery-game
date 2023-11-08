@@ -1,4 +1,4 @@
-import { Connection, Point } from "../../entities/level";
+import { Connection, Point } from "../../types";
 
 export const getPointByID = (points: Point[], id: string) =>
   points.find((point) => point.id === id);
