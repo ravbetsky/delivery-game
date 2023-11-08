@@ -47,7 +47,7 @@ export function Login({ onNextClick, onBackClick }: Props) {
         </hgroup>
         <a
           className="chevron-link"
-          href="https://yandex.ru/jobs/services/dostavka"
+          href="https://yandex.ru/jobs/services/dostavka?utm_source=matmar_game"
           target="_blank"
         >
           Хочу работать в Доставке

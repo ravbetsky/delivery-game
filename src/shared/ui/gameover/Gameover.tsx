@@ -51,7 +51,7 @@ export function Gameover({
           type="outline"
           title="Хочу работать в Доставке"
           onClick={() =>
-            window.open("https://yandex.ru/jobs/services/dostavka", "_blank")
+            window.open("https://yandex.ru/jobs/services/dostavka?utm_source=matmar_game", "_blank")
           }
         />
         <Button
