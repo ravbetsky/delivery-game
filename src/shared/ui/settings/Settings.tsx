@@ -16,7 +16,7 @@ export function Settings({ onSaveClick, onBackClick }: Props) {
   const playerDocRef = doc(db, "players", currentPlayerID);
   const [currentPlayerName, setCurrentPlayerName] = useState();
   const [inputValue, setInputValue] = useState('');
-  console.log(currentPlayerID)
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getCurrentPlayerData = async () => {
     const playerDocSnap = await getDoc(playerDocRef);
